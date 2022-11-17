@@ -44,14 +44,7 @@ class Lens(commands.Cog):
         response = requests.post(
             url, files=files, auth=(client_id, client_secret)
         )
-        if response.json()["status"] == "error":
-            await ctx.respond(
-                embed=EmbedBuilder(
-                    title="Lens",
-                    description="An error occurred while processing the image.",
-                ).build()
-            )
-            return
+
         keywords = response.json()
 
         embed = EmbedBuilder(
