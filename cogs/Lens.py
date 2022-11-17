@@ -14,8 +14,8 @@ from util.Logging import log
 
 load_dotenv()
 
-client_id = os.getenv("EVERYPIXEL_CLIENT_ID")
-client_secret = os.getenv("EVERYPIXEL_CLIENT_SECRET")
+CLIENT_ID = os.getenv("EVERYPIXEL_CLIENT_ID")
+CLIENT_SECRET = os.getenv("EVERYPIXEL_CLIENT_SECRET")
 
 class Lens(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
@@ -42,7 +42,7 @@ class Lens(commands.Cog):
         url = "https://api.everypixel.com/v1/keywords"
         files = {"data": await attachment.read()}
         response = requests.post(
-            url, files=files, auth=(client_id, client_secret)
+            url, files=files, auth=(CLIENT_ID, CLIENT_SECRET)
         )
         if response.json()["status"] == "error":
             await ctx.respond(
