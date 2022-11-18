@@ -31,13 +31,13 @@ class Lens(commands.Cog):
     )
     async def lens(self, ctx: commands.Context, attachment: discord.Attachment) -> None:
         """
-        It takes an image attachment, sends it to the EveryPixel API, and returns the keywords of the image
+        It takes an image, sends it to the EveryPixel API, and returns the keywords of the image
         
-        :param ctx: The context of the command
+        :param ctx: commands.Context
         :type ctx: commands.Context
         :param attachment: discord.Attachment
         :type attachment: discord.Attachment
-        :return: The response is a JSON object.
+        :return: The response from the API.
         """
         url = "https://api.everypixel.com/v1/keywords"
         files = {"data": await attachment.read()}
