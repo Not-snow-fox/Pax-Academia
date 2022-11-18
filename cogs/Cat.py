@@ -21,7 +21,7 @@ class Cat(commands.Cog):
         async with aiohttp.ClientSession() as session:
             async with session.get(api) as resp:
                 if resp.status != 200:
-                    await ctx.send(
+                    await ctx.respond(
                         embed=EmbedBuilder(
                             title="Cat",
                             description="An error occurred while processing the image.",
@@ -29,7 +29,7 @@ class Cat(commands.Cog):
                     )
                     return
                 data = await resp.read()
-                await ctx.send(
+                await ctx.respond(
                     file=discord.File(fp=BytesIO(data), filename="cat.png")
                 )
 
