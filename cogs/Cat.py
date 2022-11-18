@@ -1,38 +1,29 @@
-from io import BytesIO
-
-import aiohttp
 import discord
+import requests
 from discord.ext import commands
 
-from util.EmbedBuilder import EmbedBuilder
+
+async def get(session: object, url: object) -> object:
+    async with session.get(url) as response:
+        return await response.text()
 
 
 class Cat(commands.Cog):
-    @commands.slash_command(name="cat", description="Sends a random cat image.")
+    def __init__(self, bot: commands.Bot) -> None:
+        self.bot = bot
+
+    @commands.slash_command(name="cat", description="Returns a random cat image.")
     async def cat(self, ctx: commands.Context) -> None:
         """
-        It gets a random cat image from the internet and sends it to the channel
+        It gets a random cat picture from the internet and sends it to the channel
 
-        :param ctx: commands.Context
+        :param ctx: The context of where the command was used
         :type ctx: commands.Context
-        :return: None.
         """
-        api = "https://cataas.com/cat"
-        async with aiohttp.ClientSession() as session:
-            async with session.get(api) as resp:
-                if resp.status != 200:
-                    await ctx.respond(
-                        embed=EmbedBuilder(
-                            title="Cat",
-                            description="An error occurred while processing the image.",
-                        ).build()
-                    )
-                    return
-                data = await resp.read()
-                await ctx.respond(
-                    file=discord.File(fp=BytesIO(data), filename="cat.png")
-                )
+        response = requests.get("https://aws.random.cat/meow")
+        data = response.json()
+        await ctx.respond(data["file"])
 
 
 def setup(bot: commands.Bot) -> None:
-    bot.add_cog(Cat())
+    bot.add_cog(Cat(bot))
