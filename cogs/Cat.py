@@ -6,15 +6,13 @@ from discord.ext import commands
 
 from util.EmbedBuilder import EmbedBuilder
 
-# Connect to the cataas API and return the image.
-
 
 class Cat(commands.Cog):
     @commands.slash_command(name="cat", description="Sends a random cat image.")
     async def cat(self, ctx: commands.Context) -> None:
         """
         Sends a random cat image.
-        
+
         :param ctx: commands.Context
         :type ctx: commands.Context
         :return: None
@@ -31,8 +29,9 @@ class Cat(commands.Cog):
                     )
                     return
                 data = await resp.read()
-                await ctx.respond(file=discord.File(fp=BytesIO(data), filename="cat.png"))
-                      
+                await ctx.respond(
+                    file=discord.File(fp=BytesIO(data), filename="cat.png")
+                )
 
 
 def setup(bot: commands.Bot) -> None:
