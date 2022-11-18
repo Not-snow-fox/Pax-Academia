@@ -11,11 +11,11 @@ class Cat(commands.Cog):
     @commands.slash_command(name="cat", description="Sends a random cat image.")
     async def cat(self, ctx: commands.Context) -> None:
         """
-        Sends a random cat image.
+        It gets a random cat image from the internet and sends it to the channel
 
         :param ctx: commands.Context
         :type ctx: commands.Context
-        :return: None
+        :return: None.
         """
         api = "https://cataas.com/cat"
         async with aiohttp.ClientSession() as session:
